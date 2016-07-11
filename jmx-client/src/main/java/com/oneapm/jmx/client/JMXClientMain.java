@@ -11,6 +11,7 @@ package com.oneapm.jmx.client;
 
 import java.io.IOException;
 
+import javax.management.InstanceNotFoundException;
 import javax.management.JMX;
 import javax.management.MBeanServerConnection;
 import javax.management.MalformedObjectNameException;
@@ -40,9 +41,11 @@ public class JMXClientMain {
      * @param args
      * @throws IOException
      * @throws MalformedObjectNameException
+     * @throws InstanceNotFoundException
+     * @throws InterruptedException
      * @since JDK 1.8
      */
-    public static void main(String[] args) throws IOException, MalformedObjectNameException {
+    public static void main(String[] args) throws IOException, MalformedObjectNameException, InstanceNotFoundException, InterruptedException {
         // service: jmx
         // protocol: rmi
         // host: localhost
@@ -61,7 +64,14 @@ public class JMXClientMain {
         //
         MonitorMXBean proxy = JMX.newMXBeanProxy(conn,
                                                  name,
-                                                 MonitorMXBean.class);
+                                                 MonitorMXBean.class,
+                                                 true);
+        // registry listener handler
+        NotificationHandler handler = new NotificationHandler();
+        conn.addNotificationListener(name,
+                                     handler,
+                                     null,
+                                     null);
         //
         System.out.println(proxy.getContent());
         System.out.println(proxy.getNum());
@@ -72,6 +82,7 @@ public class JMXClientMain {
         proxy.setNum(2);
         System.out.println(proxy.pullStats());
         //
+        Thread.sleep(3000);
         connector.close();
     }
     
