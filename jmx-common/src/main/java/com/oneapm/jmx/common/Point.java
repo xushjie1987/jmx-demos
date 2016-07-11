@@ -13,6 +13,7 @@ import java.beans.ConstructorProperties;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * ClassName:InnerStruff <br/>
@@ -26,6 +27,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@ToString
 public class Point {
     
     private Integer x;

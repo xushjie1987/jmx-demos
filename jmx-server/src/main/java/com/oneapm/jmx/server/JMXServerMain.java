@@ -58,7 +58,7 @@ public class JMXServerMain {
         //
         Point p = new Point(10,
                             100);
-        MonitorImpl mxbean = new MonitorImpl("test_string",
+        MonitorImpl mxbean = new MonitorImpl("old content",
                                              1,
                                              p);
         //
