@@ -11,11 +11,15 @@ package com.oneapm.jmx.client;
 
 import java.io.IOException;
 
+import javax.management.AttributeNotFoundException;
 import javax.management.InstanceNotFoundException;
+import javax.management.IntrospectionException;
 import javax.management.JMX;
+import javax.management.MBeanException;
 import javax.management.MBeanServerConnection;
 import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
+import javax.management.ReflectionException;
 import javax.management.remote.JMXConnector;
 import javax.management.remote.JMXConnectorFactory;
 import javax.management.remote.JMXServiceURL;
@@ -43,9 +47,13 @@ public class JMXClientMain {
      * @throws MalformedObjectNameException
      * @throws InstanceNotFoundException
      * @throws InterruptedException
+     * @throws ReflectionException
+     * @throws IntrospectionException
+     * @throws MBeanException
+     * @throws AttributeNotFoundException
      * @since JDK 1.8
      */
-    public static void main(String[] args) throws IOException, MalformedObjectNameException, InstanceNotFoundException, InterruptedException {
+    public static void main(String[] args) throws IOException, MalformedObjectNameException, InstanceNotFoundException, InterruptedException, IntrospectionException, ReflectionException, AttributeNotFoundException, MBeanException {
         // service: jmx
         // protocol: rmi
         // host: localhost

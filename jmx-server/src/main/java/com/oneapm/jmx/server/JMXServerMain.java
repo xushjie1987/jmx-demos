@@ -18,7 +18,10 @@ import javax.management.MalformedObjectNameException;
 import javax.management.NotCompliantMBeanException;
 import javax.management.ObjectName;
 
+import com.oneapm.jmx.common.Mem;
 import com.oneapm.jmx.common.MonitorImpl;
+import com.oneapm.jmx.common.Node;
+import com.oneapm.jmx.common.OS;
 import com.oneapm.jmx.common.Point;
 
 /**
@@ -55,15 +58,25 @@ public class JMXServerMain {
         ObjectName name = new ObjectName("com.oneapm.jmx.common",
                                          "type",
                                          "MonitorImpl");
-        //
         Point p = new Point(10,
                             100);
         MonitorImpl mxbean = new MonitorImpl("old content",
                                              1,
                                              p);
-        //
         server.registerMBean(mxbean,
                              name);
+        //
+        ObjectName nodeName = new ObjectName("com.oneapm.jmx.common",
+                                             "type",
+                                             "Node");
+        Node node = new Node();
+        OS os = new OS();
+        Mem mem = new Mem();
+        mem.setTotalBytes(1024);
+        os.setMem(mem);
+        node.setOs(os);
+        server.registerMBean(node,
+                             nodeName);
         //
         System.out.println("Waiting...");
         Thread.sleep(Long.MAX_VALUE);
